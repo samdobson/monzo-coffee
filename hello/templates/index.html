@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+
+<div class="jumbotron text-center">
+  <div class="container">
+    <a href="/" class="lang-logo">
+      <img src="{% static 'lang-logo.png'%}">
+    </a>
+    <h1>Monzo Coffee</h1>
+    <p>Ready to super-charge your Monzo experience? Welcome to your very own transaction tagging Python application on Heroku. It's all ready to go!</p>
+    <a type="button" class="btn btn-lg btn-default" href="#docs"><span class="glyphicon glyphicon-flash"></span> Getting Started</a>
+    <a type="button" class="btn btn-lg btn-primary" href="https://github.com/samdobson/monzo-coffee"><span class="glyphicon glyphicon-download"></span> Source on GitHub</a>
+  </div>
+</div>
+<div class="container">
+	  <div class="alert alert-info text-center" role="alert">
+		  You have {{ num_accounts }} Monzo accounts.
+  </div>
+
+
+  {% if webhook_active %}
+  <div class="alert alert-info text-center" role="alert">
+    Webhook is active. <a href="{% url 'deactivate-webhook' %}">Deactivate webhook</a>
+  </div>
+  {% else %}
+  <div class="alert alert-warning text-center" role="alert">
+    Webhook is not active. <a href="{% url 'activate-webhook' %}">Activate webhook</a>
+  </div>
+  {% endif %}
+
+  <hr>
+  <div class="row">
+    <div class="col-md-6">
+      <h3><span class="glyphicon glyphicon-info-sign"></span> What this app does</h3>
+      <ul>
+	<li>Track your spending and organise your transactions in more granular detail</li>
+	<li>It's like custom categories on steroids!</li>
+	<li>Group together spending on specific things, like #coffee</li>
+        <li>It will tag new transactions on the fly</li>
+        <li>You can even update historical transactions with just a couple of clicks</li>
+      </ul>
+    </div>
+    <div class="col-md-6">
+      <h3><span class="glyphicon glyphicon-link"></span> Next Steps</h3>
+      <ul>
+        <li>Grant the appropriate permissions through the <a href="https://developers.monzo.com/" class="alert-link">Monzo Developers Portal</a>
+        <li>Enjoy tagging!</li>
+      </ul>
+    </div>
+  </div> <!-- row -->
+</div>
+{% endblock %}

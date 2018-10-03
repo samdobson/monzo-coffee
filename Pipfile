@@ -1,0 +1,16 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+
+[packages]
+django = "*"
+gunicorn = "*"
+django-heroku = "*"
+password-required = {git = "git://github.com/mikl/django-password-required.git"}
+monzo = {git = "git://github.com/samdobson/monzo-python"}
+sphinx = "*"
+sphinx-autobuild = "*"
+sphinx-rtd-theme = "*"
+
+[requires]
+python_version = "3.6"

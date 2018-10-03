@@ -1,0 +1,30 @@
+{
+  "name": "Monzo Coffee",
+  "description": "Smart transaction tagging for data-loving Monzonauts.",
+  "image": "heroku/python",
+  "repository": "https://github.com/samdobson/monzo-coffee",
+  "keywords": ["python", "django", "monzo"],
+  "addons": [ "heroku-postgresql" ],
+  "env": {
+    "MONZO_ACCESS_TOKEN": {
+      "description": "Access key obtained from the Monzo Developer Portal.",
+      "value": ""
+    },
+    "PASSWORD": {
+      "description": "Password to access your app.",
+      "generator": "secret"
+    },
+    "SECRET_KEY": {
+      "description": "Secret key for the Django application (internal use only).",
+      "generator": "secret"
+    }
+  },
+  "environments": {
+    "test": {
+      "scripts": {
+        "test-setup": "python manage.py collectstatic --noinput",
+        "test": "python manage.py test"
+      }
+    }
+  }
+}
