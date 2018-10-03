@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+    <h1>Define Tag</h1>
+    <form method="POST" class="post-form">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-default">Save</button>
+    </form>
+    <br>
+    Expression must be a valid Python expression. See <a href="https://monzo-coffee.readthedocs.io/en/latest/examples.html#examples">docs</a> for help.
+{% endblock %}
+

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+<div class="container">
+  <div class="alert alert-danger text-center" role="alert">
+	  Your Monzo Access Token is invalid or has expired. Grab a new one from the <a href="https://developers.monzo.com/">Monzo Developer Portal</a>, update the <code>MONZO_ACCESS_TOKEN</code> Config Var in <a href="https://dashboard.heroku.com/apps/{{ app_name }}/settings">App Settings</a> and try again.
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+
+<div class="container">
+
+{% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} text-center" role="alert">
+	{{ message }}
+  </div>
+    {% endfor %}
+{% endif %}
+
+{% comment %} Pending OAuth implementation
+  {% if webhook_active %}
+  <div class="alert alert-info text-center" role="alert">
+    Webhook is active. <a href="{% url 'deactivate-webhook' account_id=account_id %}">Deactivate webhook</a>
+  </div>
+  {% else %}
+  <div class="alert alert-warning text-center" role="alert">
+    Webhook is not active. <a href="{% url 'activate-webhook' account_id=account_id %}">Activate webhook</a>
+  </div>
+  {% endif %}
+{% endcomment %}
+
+  <hr>
+  <div class="row">
+    <div class="col-md-12">
+      <h3><span class="glyphicon glyphicon-info-sign"></span> Account</h3>
+      <select id="account-id" class="form-control">
+      {% for account in accounts %}
+      <option value="{{ account.id }}">
+      {{ account.type }}{% if account.closed %} (closed){% endif %}
+      </option>
+      {% endfor %}
+</select>
+<script>
+$(document).ready(function() {
+    $('#account-id').val('{{ account_id }}');
+
+    $('#account-id').change(function(){
+        var accountId = document.getElementById("account-id").value;
+        window.location = '/account/' + accountId;
+    });
+});
+</script>
+
+<br><br>
+
+
+<h3><span class="glyphicon glyphicon-tags"></span> Custom Tags</h3>
+
+<a href="{% url 'tag-new' %}"><span class="glyphicon glyphicon-plus"></span></a>
+<br>
+
+{% for tag in tags %}
+<a class="btn btn-default" href="{% url 'tag-edit' pk=tag.pk %}"><span class="glyphicon glyphicon-pencil"></span></a> 
+<a class="btn btn-default" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i>Tagging transactions" href="{% url 'tag-apply' pk=tag.pk account_id=account_id %}">Tag Transactions</a> 
+{{ tag.label }} - <code>{{ tag.expression }}</code><br>
+{% endfor %}
+
+<script>
+$('.btn').on('click', function() {
+  var $this = $(this);
+  $this.button('loading');
+});
+</script>
+
+
+<h3><span class="glyphicon glyphicon-tags"></span> Preset Tags</h3>
+{% for option, value in strftime_codes.items %}
+<a class="btn btn-default" id="apply-custom" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i>Tagging transactions" href="{% url 'tag-by-time' time_period=option account_id=account_id %}">{{ option }}</a> 
+{% endfor %}
+
+  </div> <!-- row -->
+</div>
+{% endblock %}

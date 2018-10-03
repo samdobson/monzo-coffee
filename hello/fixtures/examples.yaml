@@ -1,0 +1,12 @@
+-   model: hello.tag
+    pk: '#coffee'
+    fields: {expression: 'txn[''merchant''][''name''] in (''Starbucks'', ''Costa Coffee'')', created: ! '2018-10-05 23:43:07.299026+00:00'}
+-   model: hello.tag
+    pk: '#usa'
+    fields: {expression: 'txn[''merchant''][''address''][''country''] == ''USA''', created: ! '2018-10-06 01:47:58.781953+00:00'}
+-   model: hello.tag
+    pk: '#weekend'
+    fields: {expression: 'txn[''created''].weekday() > 4', created: ! '2018-10-06 01:47:58.781953+00:00'}
+-   model: hello.tag
+    pk: '#fail'
+    fields: {expression: 'txn[''decline_reason'']', created: ! '2018-10-06 01:47:58.781953+00:00'}
