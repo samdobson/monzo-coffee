@@ -1,0 +1,299 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+
+{% if messages %}
+    {% for message in messages %}
+    <div class="ui info message">{{ message }}</div>
+    {% endfor %}
+{% endif %}
+
+
+<div class="ui form">
+<div class="field">
+<label>Account</label>
+<div id="account-selector" class="ui selection dropdown">
+<input type="hidden" name="account">
+<i class="dropdown icon"></i>
+  <div class="default text">Account</div>
+    <div class="menu">
+      {% for account in accounts %}
+      <div class="item" data-value="{{ account.id }}">{{ account.type }}{% if account.closed %} (closed){% endif %}</div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+</div>
+
+
+	<style>
+	canvas {
+		-moz-user-select: none;
+		-webkit-user-select: none;
+		-ms-user-select: none;
+	}
+	</style>
+
+	<div style="width:40%">
+<canvas id="onlineChart"></canvas>
+	</div>
+
+<script>
+var chartColours = {
+	red: 'rgb(255, 99, 132)',
+	orange: 'rgb(255, 159, 64)',
+	yellow: 'rgb(255, 205, 86)',
+	green: 'rgb(75, 192, 192)',
+	blue: 'rgb(54, 162, 235)',
+	purple: 'rgb(153, 102, 255)',
+	grey: 'rgb(201, 203, 207)'
+};
+var config = {
+	type: 'doughnut',
+	data: {
+		datasets: [{
+			data: [
+				{{ online_data.online }},
+				{{ online_data.in_store }},
+			],
+			backgroundColor: [
+				chartColours['orange'],
+				chartColours['blue'],
+			],
+			label: 'Transactions'
+		}],
+		labels: [
+			'Online',
+			'In-store'
+		]
+	},
+	options: {
+		responsive: true,
+		legend: {
+			position: 'top',
+		},
+		title: {
+			display: true,
+			text: 'Online Spending'
+		},
+		animation: {
+			animateScale: true,
+			animateRotate: true
+		}
+	}
+};
+</script>
+
+	<div style="width:40%">
+<canvas id="ukChart"></canvas>
+	</div>
+<script>
+var config2 = {
+	type: 'doughnut',
+	data: {
+		datasets: [{
+			data: [
+				{{ uk_data.uk }},
+				{{ uk_data.abroad }},
+			],
+			backgroundColor: [
+				chartColours['yellow'],
+				chartColours['green'],
+			],
+			label: 'Transactions'
+		}],
+		labels: [
+			'UK',
+			'Abroad'
+		]
+	},
+	options: {
+		responsive: true,
+		legend: {
+			position: 'top',
+		},
+		title: {
+			display: true,
+			text: 'Foreign Spending'
+		},
+		animation: {
+			animateScale: true,
+			animateRotate: true
+		}
+	}
+};
+
+window.onload = function() {
+	var ctx = document.getElementById('onlineChart').getContext('2d');
+	window.onlineChart = new Chart(ctx, config);
+	var ctx2 = document.getElementById('ukChart').getContext('2d');
+	window.ukChart = new Chart(ctx2, config2);
+};
+</script>
+
+<div class="ui segment">
+  <div id="ld" class="ui dimmer">
+    <div class="ui massive text loader">Tagging Transactions</div>
+  </div>
+
+{% comment %} Pending OAuth implementation
+  {% if webhook_active %}
+  <div class="alert alert-info text-center" role="alert">
+    Webhook is active. <a href="{% url 'deactivate-webhook' account_id=account_id %}">Deactivate webhook</a>
+  </div>
+  {% else %}
+  <div class="alert alert-warning text-center" role="alert">
+    Webhook is not active. <a href="{% url 'activate-webhook' account_id=account_id %}">Activate webhook</a>
+  </div>
+  {% endif %}
+{% endcomment %}
+<script>
+$('#account-selector')
+  .dropdown({
+	  action: function(text, value) {
+        	window.location = '/account/' + value;
+	  }
+  })
+;
+$(document).ready(function() {
+    $('#account-selector').select('{{ account_id }}');
+});
+</script>
+
+<h3>Tag Database</h3>
+
+<div class="ui statistic">
+  <div class="value">
+    {{ txn_count }}
+  </div>
+  <div class="label">
+    Transactions
+  </div>
+</div>
+
+<div class="ui statistic">
+  <div class="value">
+    {{ tags_used_count }}
+  </div>
+  <div class="label">
+    Total tags
+  </div>
+</div>
+
+<div class="ui statistic">
+  <div class="value">
+    {{ tag_counts.items|length }}
+  </div>
+  <div class="label">
+    Different tags used
+  </div>
+</div>
+
+<div>
+<a href="{% url 'tag-new' %}">
+<button class="ui basic button">
+  <i class="icon plus"></i>
+    Add Tag
+</button>
+</a>
+<div>
+
+<div class="ui huge tag labels">
+{% for tag, count in tag_counts.items %}
+<a class="ui label">{{ tag }} <div class="detail">{{ count }}</div></a>
+{% endfor %}
+
+<h2>Suggested Tags</h2>
+<select name="suggestions" multiple="" class="ui fluid dropdown">
+{% for suggestion in suggestions %}
+<option value="{{ suggestion }}">{{ suggestion }}</option>
+{% endfor %}
+</select>
+
+<button class="ui primary button">
+  Apply Tags
+</button>
+
+<script>
+//$('.tag').on('click', function() {
+//  $('#ld').toggleClass('active');
+//});
+</script>
+
+<div class="ui relaxed divided list">
+  {% for tag in custom_tags %}
+  <div class="item">
+    <i class="large tag middle aligned icon"></i>
+    <div class="content">
+      <a class="header">{{ tag.label }}</a>
+	    <div class="description">
+		    <code>{{ tag.expression }}</code>
+	    </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+
+<h3> Preset Tags</h3>
+{% for option, value in strftime_codes.items %}
+<a href="{% url 'tag-by-time' time_period=option account_id=account_id %}">{{ option }}</a> 
+{% endfor %}
+
+</div>
+
+
+<div class="ui teal buttons">
+  <div class="ui button">Tag Menu</div>
+  <div class="ui floating dropdown icon button">
+    <i class="dropdown icon"></i>
+    <div class="menu">
+      <div class="item"><i class="edit icon"></i> Rename Tag</div>
+      <div class="item"><i class="delete icon"></i> Delete Tag</div>
+    </div>
+  </div>
+</div>
+
+<div id="confirm-delete-tag" class="ui tiny modal">
+  <div class="header">Delete tag?</div>
+  <div class="content">
+    <p>This will remove this tag from all transactions.</p>
+  </div>
+  <div class="actions">
+    <div class="ui approve button">OK</div>
+    <div class="ui cancel button">Cancel</div>
+  </div>
+</div>
+
+<script>
+//$('#confirm-delete-tag').modal('show');
+</script>
+
+<div class="ui feed">
+{% if history %}
+  {% for event in history %}
+  <div class="event">
+    <div class="label">
+      <i class="undo alternate icon"></i>
+    </div>
+    <div class="content">
+      <div class="summary">
+	      Tagged <b>{{ event.txns_affected }}</b> transactions with <b>{{ event.tag }}</b>
+	      <div class="date">{{ event.created }}</div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+{% else %}
+<div class="ui placeholder segment">
+  <div class="ui icon header">
+    <i class="dont icon"></i>
+    You haven't applied any changes yet.
+  </div><br>
+  <a href="{% url 'tag-test' account_id=account_id %}"><div class="ui primary button">Do a #test</div></a>
+</div>
+{% endif %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,16 @@
+[
+  {
+    "model": "hello.tag",
+    "fields": {
+      "label": "#coffee",
+      "expression": "txn['merchant']['name'] in ('Starbucks', 'Costa Coffee')"
+    }
+  },
+  {
+    "model": "hello.tag",
+    "fields": {
+      "label": "#august",
+      "expression": "txn['created'].month == 8"
+    }
+  },
+]

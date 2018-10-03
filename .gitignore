@@ -1,0 +1,6 @@
+db.sqlite3
+staticfiles
+*.pyc
+_build
+_static
+_templates
