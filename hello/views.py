@@ -69,6 +69,7 @@ def index(request):
     """
 
     context = {
+        'app_name': app_name,
         'num_accounts': num_accounts,
         'webhook_active': webhook_active
     }
