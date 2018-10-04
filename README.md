@@ -4,17 +4,19 @@ Advanced transaction tagging for Monzo.
 
 Powered by [monzo-python](https://github.com/muyiwaolu/monzo-python).
 
-## Quick Start Deployment
+This software is under active development - expect breaking changes.
+
+## One-click deployment
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
 You will be prompted for a *Monzo Access Token* which can be obtained via the [Monzo Developer Portal](https://developers.monzo.com)
 
-The password is stored as a configuration variable in Heroku.
+Check the configuration variables for your password.
 
-Consult the [quickstart guide](https://monzo-coffee.readthedocs.io/en/latest/) for a detailed walkthrough.
+Step-by-step instructions can be found in the [quickstart guide](https://monzo-coffee.readthedocs.io/en/latest/).
 
-## Local development
+## Development
 
 You will need to have installed [Python 3.6](http://install.python-guide.org), [pipenv](https://pipenv.readthedocs.io/en/latest/), the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) and [Postgres](https://devcenter.heroku.com/articles/heroku-postgresql#local-setup).
 
@@ -34,8 +36,7 @@ $ heroku local
 
 Your app should now be running on [localhost:5000](http://localhost:5000/).
 
-
-## Advanced deployment
+To deploy to Heroku:
 
 ```sh
 $ heroku create
@@ -48,7 +49,7 @@ $ heroku open
 
 Monzo Coffee aims to be secure by default. It uses SSL throughout and is password-protected out of the box.
 
-It is not possible to move money through the Monzo API (other than into and out of pots).
+The Monzo API does not allow movement of money (other than into and out of pots).
 
 Please do not open a GitHub issue for security-related matters. You can use this [contact form](https://fncontact.com/monzo-coffee) to get in touch with the author.
 
