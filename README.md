@@ -6,6 +6,8 @@ Group your `#coffee` spending and make it searchable/filterable in the Monzo app
 
 Powered by [monzo-python](https://github.com/samdobson/monzo-python).
 
+![Monzo Coffee Interface](http://i.imgur.com/L7mLUtc.png "Interface")
+
 ## :computer: One-click deployment
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
