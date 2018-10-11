@@ -27,7 +27,7 @@ strftime_code = {
     'Weekday': "%A",
     'Weekday Short': "%a",
     'Month': "%B",
-    'Month Short': "%B",
+    'Month Short': "%b",
     'Week no.': "week%W",
     'Year': "%Y"
 }
