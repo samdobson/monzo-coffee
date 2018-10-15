@@ -41,6 +41,7 @@ strftime_code = {
     'Year': "%Y"
 }
 
+@password_required
 def transactions(request):
     """Endpoint for serving transaction data to json-viewer React App"""
     if request.META.get('REMOTE_ADDR') == '127.0.0.1':
