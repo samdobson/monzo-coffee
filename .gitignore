@@ -4,3 +4,4 @@ staticfiles
 _build
 _static
 _templates
+jsonviewer/build
