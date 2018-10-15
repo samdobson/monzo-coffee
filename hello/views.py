@@ -46,7 +46,7 @@ def transactions(request):
     """Endpoint for serving transaction data to json-viewer React App"""
     client = init_client()
     account_id = client.get_first_account()['id']
-    transactions = client.get_transactions(account_id)
+    transactions = client.get_transactions(account_id)['transactions']
     return JsonResponse(transactions)
 
 @password_required
