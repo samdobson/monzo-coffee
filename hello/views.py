@@ -50,7 +50,7 @@ def transactions(request):
 
 @password_required
 def json_viewer(request):
-    return render('json-viewer.html')
+    return render(request, 'json-viewer.html')
 
 @password_required
 def start_auth(request):
