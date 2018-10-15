@@ -11,7 +11,6 @@
     {% endfor %}
 {% endif %}
 
-
 <div class="ui form">
 <div class="field">
 <label>Account</label>
@@ -27,7 +26,6 @@
   </div>
 </div>
 </div>
-
 
 	<style>
 	canvas {
@@ -225,7 +223,7 @@ $(document).ready(function() {
 </div>
 
 <script>
-$('#tag-repo .tag')
+$('.ui.label')
   .popup({
     on: 'click'
   })
@@ -325,12 +323,17 @@ $('#tag-repo .tag')
 </div>
 
 <div class="ui raised very padded text container segment">
-  <h2 class="ui header">Supporting Monzo Coffee</h2>
-  <p>Do you speak Python? Monzo Coffee is looking for people passionate about Monzo and data. We use the Django framework, Semantic UI for and Heroku for deployment.</p>
-  <p></p>
+  <h2 class="ui header">Do you speak Python?</h2>
+  <p>Monzo Coffee is looking for people passionate about Monzo and data science to contribute to the project. We use Django, Semantic UI, and Heroku.</p>
+  	<a href="https://github.com/samdobson/monzo-coffee">
+	<button class="ui github button">
+	  <i class="github icon"></i>
+	  Get Involved
+	</button>
+	</a>
 </div>
 
-<h4>Auto tagging</h4>
+<h4>Webhook</h4>
 <button class="ui toggle button">Enable</button>
 
 <script async defer src="https://buttons.github.io/buttons.js"></script>
