@@ -41,12 +41,14 @@ strftime_code = {
     'Year': "%Y"
 }
 
-@password_required
 def transactions(request):
-    client = init_client()
-    account = client.get_first_account()['id']
-    transactions = client.get_transactions(account_id)['transactions']
-    return HttpResponse(json.dumps(transactions))
+    """Endpoint for serving transaction data to json-viewer React App"""
+    if request.META.get('REMOTE_ADDR') == '127.0.0.1':
+        client = init_client()
+        account = client.get_first_account()['id']
+        transactions = client.get_transactions(account_id)['transactions']
+        return HttpResponse(json.dumps(transactions))
+    return HttpResponseForbidden()
 
 @password_required
 def json_viewer(request):
