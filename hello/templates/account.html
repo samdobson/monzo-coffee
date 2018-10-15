@@ -93,7 +93,7 @@ var config = {
 			label: function(tooltipItem, data) {
 				var dataset = data.datasets[tooltipItem.datasetIndex];
 				var dataLabel = data.labels[tooltipItem.index];
-				var amount = dataset.data[tooltipItem.index];
+				var amount = dataset.data[tooltipItem.index].toString();
 				var res = amount.substring(0,amount.length-2) + "." + amount.substring(amount.length-2);
 			  	return dataLabel + ": £" + res;
 			}
