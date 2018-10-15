@@ -198,7 +198,7 @@ def index(request):
     if len(userdata):
         userdata = Settings.objects.filter()[0]
         if not userdata.token:
-            return render(request, 'index.html')
+            return render(request, 'connect.html')
         else:
             print(userdata.token)
 
@@ -212,8 +212,7 @@ def index(request):
             userdata.save()
             return redirect('account', account_id)
     else:
-        return render(request, 'index.html')
-
+        return render(request, 'connect.html')
 
 @password_required
 def tag_new(request):
