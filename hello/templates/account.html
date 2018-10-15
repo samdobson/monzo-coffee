@@ -222,6 +222,8 @@ $(document).ready(function() {
 	<a class="ui label" data-title="Actions" data-content="Here you will be able to rename/edit/delete/automate the tag">{{ tag }} 
 		<div class="detail">{{ count }}</div></a>
 	{% endfor %}
+</div>
+
 <script>
 $('#tag-repo .tag')
   .popup({
@@ -230,7 +232,6 @@ $('#tag-repo .tag')
 ;
 //$('#confirm-delete-tag').modal('show');
 </script>
-</div>
 
 <a href="{% url 'tag-new' %}">
 <button class="ui basic button">
