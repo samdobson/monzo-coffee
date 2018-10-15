@@ -92,9 +92,18 @@ var config = {
 		   callbacks: {
 			label: function(tooltipItem, data) {
 				var dataset = data.datasets[tooltipItem.datasetIndex];
+
 				var dataLabel = data.labels[tooltipItem.index];
-				var amount = dataset.data[tooltipItem.index].toString();
-				var res = amount.substring(0,amount.length-2) + "." + amount.substring(amount.length-2);
+				/*
+				var amountInt = dataset.data[tooltipItem.index];
+                                  if(parseInt(amountInt / 100) >= 1000){
+                                    var amount = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                                  } else {
+                                    return '$' + value;
+                                  }
+				*/
+				var amount = amountInt.toString();
+				var res = amount.substring(0, amount.length - 2) + "." + amount.substr(-2);
 			  	return dataLabel + ": £" + res;
 			}
 		   }
