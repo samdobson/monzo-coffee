@@ -7,7 +7,7 @@ from collections import Counter
 
 # Django
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.contrib import messages
 from django.conf import settings
 from django.urls import reverse
@@ -36,7 +36,7 @@ strftime_code = {
     'Weekday': "%A",
     'Weekday Short': "%a",
     'Month': "%B",
-    'Month Short': "%B",
+    'Month Short': "%b",
     'Week no.': "week%W",
     'Year': "%Y"
 }
@@ -46,8 +46,8 @@ def transactions(request):
     """Endpoint for serving transaction data to json-viewer React App"""
     client = init_client()
     account_id = client.get_first_account()['id']
-    transactions = client.get_transactions(account_id)['transactions']
-    return HttpResponse(json.dumps(transactions))
+    transactions = client.get_transactions(account_id)
+    return JsonResponse(transactions)
 
 @password_required
 def json_viewer(request):
