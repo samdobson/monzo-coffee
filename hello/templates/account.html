@@ -92,7 +92,10 @@ var config = {
 		   callbacks: {
 			label: function(tooltipItem, data) {
 				var dataset = data.datasets[tooltipItem.datasetIndex];
-			  	return "£" + dataset.data[tooltipItem.index];
+				var dataLabel = data.labels[tooltipItem.index];
+				var amount = dataset.data[tooltipItem.index]
+				var res = amount.substring(0,amount.length-2) + "." + amount.substring(amount.length-2);
+			  	return dataLabel + ": £" + res;
 			}
 		   }
 	        }
@@ -316,6 +319,9 @@ $('#tag-repo .tag')
   <p>Do you speak Python? Monzo Coffee is looking for people passionate about Monzo and data. We use the Django framework, Semantic UI for and Heroku for deployment.</p>
   <p></p>
 </div>
+
+<h4>Auto tagging</h4>
+<button class="ui toggle button">Enable</button>
 
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 {% endblock %}
