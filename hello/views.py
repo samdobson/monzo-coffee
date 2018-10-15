@@ -45,7 +45,7 @@ strftime_code = {
 def transactions(request):
     """Endpoint for serving transaction data to json-viewer React App"""
     client = init_client()
-    account = client.get_first_account()['id']
+    account_id = client.get_first_account()['id']
     transactions = client.get_transactions(account_id)['transactions']
     return HttpResponse(json.dumps(transactions))
 
