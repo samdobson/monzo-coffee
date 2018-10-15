@@ -87,7 +87,15 @@ var config = {
 		animation: {
 			animateScale: true,
 			animateRotate: true
-		}
+		},
+	        tooltips: {
+		   callbacks: {
+			label: function(tooltipItem, data) {
+				var dataset = data.datasets[tooltipItem.datasetIndex];
+			  	return "£" + dataset.data[tooltipItem.index];
+			}
+		   }
+	        }
 	}
 };
 </script>
@@ -195,18 +203,13 @@ $(document).ready(function() {
 </div>
 
 <div>
-<a href="{% url 'tag-new' %}">
-<button class="ui basic button">
-  <i class="icon plus"></i>
-    Add Tag
-</button>
-</a>
-<div>
+</div>
 
 <div id="tag-repo" class="ui huge tag labels">
-{% for tag, count in tag_counts.items %}
-<a class="ui label" data-title="Actions" data-content="Here you will be able to rename/edit/delete/automate the tag">{{ tag }} <div class="detail">{{ count }}</div></a>
-{% endfor %}
+	{% for tag, count in tag_counts.items %}
+	<a class="ui label" data-title="Actions" data-content="Here you will be able to rename/edit/delete/automate the tag">{{ tag }} 
+		<div class="detail">{{ count }}</div></a>
+	{% endfor %}
 <script>
 $('#tag-repo .tag')
   .popup({
@@ -215,6 +218,14 @@ $('#tag-repo .tag')
 ;
 //$('#confirm-delete-tag').modal('show');
 </script>
+</div>
+
+<a href="{% url 'tag-new' %}">
+<button class="ui basic button">
+  <i class="icon plus"></i>
+    Add Tag
+</button>
+</a>
 
 
 {% comment %}
@@ -225,10 +236,6 @@ $('#tag-repo .tag')
 {% endfor %}
 </select>
 {% endcomment %}
-
-<button class="ui primary button">
-  Apply Tags
-</button>
 
 <script>
 //$('.tag').on('click', function() {
@@ -250,14 +257,11 @@ $('#tag-repo .tag')
   {% endfor %}
 </div>
 
-
 <h3> Preset Tags</h3>
 {% for option, value in strftime_codes.items %}
 <a href="{% url 'tag-by-time' time_period=option account_id=account_id %}">{{ option }}</a> 
 {% endfor %}
-
 </div>
-
 
 <div class="ui teal buttons">
   <div class="ui button">Tag Menu</div>

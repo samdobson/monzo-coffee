@@ -151,32 +151,35 @@ def account(request, account_id):
     ### CHARTS
     # Online vs. in-store
     online = 0
+    in_store = 0
     for txn in transactions:
         try:
             if txn['merchant']['online']:
-                online += 1
+                online += txn['amount']
+            else:
+                in_store += txn['amount']
         except (KeyError, AttributeError, TypeError):
             continue
-
-    in_store = txn_count - online
 
     # UK vs. abroad
     uk = 0
+    abroad = 0
     for txn in transactions:
         try:
             if txn['merchant']['address']['country'] == 'GBR':
-                uk += 1
+                uk += txn['amount']
+            else:
+                abroad += txn['amount']
+
         except (KeyError, AttributeError, TypeError):
             continue
-
-    abroad = txn_count - uk
 
     # Credits vs. Debits
     debits = 0
     credits = 0
     for txn in transactions:
         if txn['amount'] < 0:
-            debits += amount
+            debits += txn['amount']
         if txn['amount'] > 0:
             credits += txn['amount']
 
@@ -196,8 +199,8 @@ def account(request, account_id):
         'txn_count' : len(transactions),
         'tags_used_count' : sum(tag_counts.values()),
         'history' : History.objects.all(),
-        'online_data' : { 'online': online, 'in_store': in_store },
-        'uk_data' : { 'uk': uk, 'abroad': abroad }
+        'online_data' : { 'online': abs(online), 'in_store': abs(in_store) },
+        'uk_data' : { 'uk': abs(uk), 'abroad': abs(abroad) }
     }
     return render(request, 'account.html', context)
 
