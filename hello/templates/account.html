@@ -37,18 +37,12 @@
 	}
 	</style>
 
-<div class="ui four column doubling stackable grid container">
+<div class="ui two column doubling stackable grid container">
   <div class="column">
 	<canvas id="onlineChart"></canvas>
   </div>
   <div class="column">
 	<canvas id="ukChart"></canvas>
-  </div>
-  <div class="column">
-	<p></p>
-  </div>
-  <div class="column">
-	<p></p>
   </div>
 </div>
 
@@ -209,17 +203,28 @@ $(document).ready(function() {
 </a>
 <div>
 
-<div class="ui huge tag labels">
+<div id="tag-repo" class="ui huge tag labels">
 {% for tag, count in tag_counts.items %}
-<a class="ui label">{{ tag }} <div class="detail">{{ count }}</div></a>
+<a class="ui label" data-title="Actions" data-content="Here you will be able to rename/edit/delete/automate the tag">{{ tag }} <div class="detail">{{ count }}</div></a>
 {% endfor %}
+<script>
+$('#tag-repo .tag')
+  .popup({
+    on: 'click'
+  })
+;
+//$('#confirm-delete-tag').modal('show');
+</script>
 
+
+{% comment %}
 <h2>Suggested Tags</h2>
 <select name="suggestions" multiple="" class="ui fluid dropdown">
 {% for suggestion in suggestions %}
 <option value="{{ suggestion }}">{{ suggestion }}</option>
 {% endfor %}
 </select>
+{% endcomment %}
 
 <button class="ui primary button">
   Apply Tags
@@ -275,10 +280,6 @@ $(document).ready(function() {
     <div class="ui cancel button">Cancel</div>
   </div>
 </div>
-
-<script>
-//$('#confirm-delete-tag').modal('show');
-</script>
 
 <div class="ui feed">
 {% if history %}

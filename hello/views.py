@@ -1,6 +1,6 @@
 # Standard lib
-import re
 import os
+import re
 import json
 import datetime
 from collections import Counter
@@ -170,6 +170,15 @@ def account(request, account_id):
             continue
 
     abroad = txn_count - uk
+
+    # Credits vs. Debits
+    debits = 0
+    credits = 0
+    for txn in transactions:
+        if txn['amount'] < 0:
+            debits += amount
+        if txn['amount'] > 0:
+            credits += txn['amount']
 
     # Prettify account names
     for acc in accounts:
