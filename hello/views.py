@@ -1,26 +1,29 @@
+# Standard lib
 import re
 import os
 import json
 import datetime
 from collections import Counter
 
+# Django
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib import messages
 from django.conf import settings
 from django.urls import reverse
 
+# Third-party Django
 from password_required.decorators import password_required
 
-
+# Third party
 from monzo.monzo import Monzo
 from monzo.auth import MonzoOAuth2Client
 from monzo.errors import BadRequestError, UnauthorizedError
 from oauthlib.oauth2.rfc6749.errors import InvalidClientIdError
 
+# Django app
 from .forms import TagForm
 from .models import Webhook, Tag, Settings, History
-
 
 
 ACCOUNT_TYPES = {
@@ -77,28 +80,6 @@ def auth_redirect(request):
                 return HttpResponse('The authorization code has expired. Please try again.')
     return redirect('index')
 
-def save_token_to_db(token):
-    try:
-        userdata = Settings.objects.filter()[0]
-    except:
-        userdata, created = Settings.objects.create()
-    userdata.token = json.dumps(token, sort_keys=True, indent=4)
-    userdata.save()
-    print('Token saved to DB')
-    print(token)
-
-def init_client():
-    userdata = Settings.objects.filter()[0]
-    token = json.loads(userdata.token)
-    oauth_client = MonzoOAuth2Client(
-                         os.environ.get('MONZO_CLIENT_ID'),
-                         os.environ.get('MONZO_CLIENT_SECRET'),
-                         access_token=token['access_token'],
-                         refresh_token=token['refresh_token'],
-                         expires_at=token['expires_at'],
-                         refresh_callback=save_token_to_db)
-    return Monzo.from_oauth_session(oauth_client)
-
 @password_required
 def activate_webhook(request, account_id):
 
@@ -147,12 +128,9 @@ def account(request, account_id):
 
     try:
         webhooks = client.get_webhooks(account_id)['webhooks']
-        print(webhooks)
         webhook_active = bool(webhooks)
 
         accounts = client.get_accounts()['accounts']
-        print(accounts)
-
         custom_tags = Tag.objects.all()
 
     except (BadRequestError, UnauthorizedError):
@@ -169,6 +147,7 @@ def account(request, account_id):
     suggestions = ['#suggestion{}'.format(i + 1) for i in range(20)]
     txn_count = len(transactions)
 
+    ### CHARTS
     # Online vs. in-store
     online = 0
     for txn in transactions:
@@ -190,6 +169,10 @@ def account(request, account_id):
             continue
 
     abroad = txn_count - uk
+
+    # Prettify account names
+    for acc in accounts:
+        acc['type'] = ACCOUNT_TYPES[acc['type']]
 
     context = {
         'app_name': app_name,
@@ -325,20 +308,6 @@ def parse_datetimes(transactions):
                                 pass
     return transactions
 
-
-@password_required
-def delete_all_tags(request, account_id):
-    """TODO"""
-    messages.info(request, 'Coming soon...')
-    return redirect('account', account_id)
-
-@password_required
-def show_all_tags(request, account_id):
-    """TODO"""
-    messages.info(request, 'Coming soon...')
-    return redirect('account', account_id)
-
-
 @password_required
 def tag_by_time(request, account_id, time_period):
     """Tag all transactions according to time period."""
@@ -390,4 +359,25 @@ def undo_action(request, pk, account_id):
     """Undo an action performed previously"""
     client = init_client()
     txns = client.get_transactions(account_id)['transactions']
+
+### TODO: Move below to utils.py
+def save_token_to_db(token):
+    try:
+        userdata = Settings.objects.filter()[0]
+    except:
+        userdata, created = Settings.objects.create()
+    userdata.token = json.dumps(token, sort_keys=True, indent=4)
+    userdata.save()
+
+def init_client():
+    userdata = Settings.objects.filter()[0]
+    token = json.loads(userdata.token)
+    oauth_client = MonzoOAuth2Client(
+                         os.environ.get('MONZO_CLIENT_ID'),
+                         os.environ.get('MONZO_CLIENT_SECRET'),
+                         access_token=token['access_token'],
+                         refresh_token=token['refresh_token'],
+                         expires_at=token['expires_at'],
+                         refresh_callback=save_token_to_db)
+    return Monzo.from_oauth_session(oauth_client)
 
