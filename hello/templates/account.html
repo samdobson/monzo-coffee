@@ -35,9 +35,20 @@
 	}
 	</style>
 
-	<div style="width:40%">
-<canvas id="onlineChart"></canvas>
-	</div>
+<div class="ui four column doubling stackable grid container">
+  <div class="column">
+	<canvas id="onlineChart"></canvas>
+  </div>
+  <div class="column">
+	<canvas id="ukChart"></canvas>
+  </div>
+  <div class="column">
+	<p></p>
+  </div>
+  <div class="column">
+	<p></p>
+  </div>
+</div>
 
 <script>
 var chartColours = {
@@ -85,9 +96,6 @@ var config = {
 };
 </script>
 
-	<div style="width:40%">
-<canvas id="ukChart"></canvas>
-	</div>
 <script>
 var config2 = {
 	type: 'doughnut',
