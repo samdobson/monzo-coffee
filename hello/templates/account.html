@@ -248,12 +248,7 @@ $('.ui.label')
 </select>
 {% endcomment %}
 
-<script>
-//$('.tag').on('click', function() {
-//  $('#ld').toggleClass('active');
-//});
-</script>
-
+{% comment %}
 <div class="ui relaxed divided list">
   {% for tag in custom_tags %}
   <div class="item">
@@ -265,8 +260,33 @@ $('.ui.label')
 	    </div>
     </div>
   </div>
+	<div class="ui toggle checkbox">
+	  <input type="checkbox" name="autotag">
+	</div>
   {% endfor %}
 </div>
+{% endcomment %}
+
+
+<h3>Rules</h3>
+<table class="ui celled table">
+  <thead>
+    <tr>
+    <th>Tag</th>
+    <th>Rule</th>
+    <th>Auto-Tag</th>
+  </tr>
+  </thead>
+  <tbody>
+    {% for tag in custom_tags %}
+    <tr>
+      <td data-label="Tag">{{ tag.label }}</td>
+      <td data-label="Rule"><i class="edit icon"></i> Python Code</td>
+      <td data-label="Auto-Tag"><div class="ui toggle checkbox"><input type="checkbox" name="autotag"></div></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
 
 <h3> Preset Tags</h3>
 {% for option, value in strftime_codes.items %}
@@ -274,6 +294,7 @@ $('.ui.label')
 {% endfor %}
 </div>
 
+{% comment %}
 <div class="ui teal buttons">
   <div class="ui button">Tag Menu</div>
   <div class="ui floating dropdown icon button">
@@ -295,6 +316,7 @@ $('.ui.label')
     <div class="ui cancel button">Cancel</div>
   </div>
 </div>
+{% endcomment %}
 
 <div class="ui feed">
 {% if history %}
@@ -324,17 +346,16 @@ $('.ui.label')
 
 <div class="ui raised very padded text container segment">
   <h2 class="ui header">Do you speak Python?</h2>
-  <p>Monzo Coffee is looking for people passionate about Monzo and data science to supercharge this software with additional functionality.</p>
+  <p>Monzo Coffee is looking for people passionate about Monzo and web development to extend this app with additional functionality.</p>
+	<div class="ui center aligned segment">
   	<a href="https://github.com/samdobson/monzo-coffee">
 	<button class="ui github button">
 	  <i class="github icon"></i>
 	  Get Involved
 	</button>
 	</a>
+	</div>
 </div>
-
-<h4>Webhook</h4>
-<button class="ui toggle button">Enable</button>
 
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 {% endblock %}
