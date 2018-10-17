@@ -267,7 +267,6 @@ $('.ui.label')
 </div>
 {% endcomment %}
 
-
 <h3>Rules</h3>
 <table class="ui celled table">
   <thead>
@@ -287,6 +286,7 @@ $('.ui.label')
     {% endfor %}
   </tbody>
 </table>
+<script>$('.ui.checkbox').checkbox();</script>
 
 <h3> Preset Tags</h3>
 {% for option, value in strftime_codes.items %}
