@@ -11,6 +11,7 @@ sphinx = "*"
 sphinx-autobuild = "*"
 sphinx-rtd-theme = "*"
 monzo-python = {editable = true, ref = "Oauth", git = "https://github.com/Solije/monzo-python.git"}
+termcolor = "*"
 
 [requires]
 python_version = "3.6"
