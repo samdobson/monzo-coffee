@@ -1,6 +1,6 @@
 update: all
 pin: True
-schedule: "every week"
+schedule: "every month"
 search: False
 requirements:
   - Pipfile
