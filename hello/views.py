@@ -347,8 +347,9 @@ def tag_test(request, account_id):
     """Tag most recent transaction with #test"""
     client = init_client()
     txns = client.get_transactions(account_id)['transactions']
-    txns = parse_datetimes(txns)
-    txn = max(txns, key=lambda x: x['created'])
+    #txns = parse_datetimes(txns)
+    #txn = max(txns, key=lambda x: x['created'])
+    txn = txns[-1]
 
     if '#test' not in txn['notes']:
         updated_txn = client.update_transaction_notes(
