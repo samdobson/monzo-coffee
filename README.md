@@ -1,5 +1,7 @@
 # :credit_card: Monzo Coffee :coffee:
 
+**This app is no longer being maintained. See: https://github.com/samdobson/monzo-coffee/issues/33#issuecomment-650980101 for details**
+
 Bulk tag historical transactions using your own custom rules.
 
 Group your `#coffee` spending and make it searchable/filterable in the Monzo app.
