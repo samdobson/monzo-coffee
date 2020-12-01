@@ -349,9 +349,9 @@
         },
         "watchdog": {
             "hashes": [
-                "sha256:965f658d0732de3188211932aeb0bb457587f04f63ab4c1e33eab878e9de961d"
+                "sha256:e38bffc89b15bafe2a131f0e1c74924cf07dcec020c2e0a26cccd208831fcd43"
             ],
-            "version": "==0.9.0"
+            "version": "==0.10.4"
         },
         "whitenoise": {
             "hashes": [
