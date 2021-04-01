@@ -107,10 +107,9 @@
         },
         "livereload": {
             "hashes": [
-                "sha256:29cadfabcedd12eed792e0131991235b9d4764d4474bed75cf525f57109ec0a2",
-                "sha256:e632a6cd1d349155c1d7f13a65be873b38f43ef02961804a1bba8d817fa649a7"
+                "sha256:776f2f865e59fde56490a56bcc6773b6917366bce0c267c60ee8aaf1a0959869"
             ],
-            "version": "==2.6.0"
+            "version": "==2.6.3"
         },
         "markupsafe": {
             "hashes": [
