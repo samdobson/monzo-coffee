@@ -101,10 +101,8 @@
             "version": "==0.1.2"
         },
         "port-for": {
-            "hashes": [
-                "sha256:b16a84bb29c2954db44c29be38b17c659c9c27e33918dec16b90d375cc596f1c"
-            ],
-            "version": "==0.3.1"
+            "hashes": [],
+            "version": "==0.6.3"
         },
         "psycopg2": {
             "hashes": [
