@@ -110,11 +110,8 @@
             "version": "==2.15.1"
         },
         "pyparsing": {
-            "hashes": [
-                "sha256:40856e74d4987de5d01761a22d1621ae1c7f8774585acae358aa5c5936c6c90b",
-                "sha256:f353aab21fd474459d97b709e527b5571314ee5f067441dc9f88e33eecd96592"
-            ],
-            "version": "==2.3.0"
+            "hashes": [],
+            "version": "==3.1.0"
         },
         "python-dotenv": {
             "hashes": [
