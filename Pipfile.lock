@@ -150,11 +150,8 @@
             "version": "==1.2.2"
         },
         "sphinxcontrib-websupport": {
-            "hashes": [
-                "sha256:68ca7ff70785cbe1e7bccc71a48b5b6d965d79ca50629606c7861a21b206d9dd",
-                "sha256:9de47f375baf1ea07cdb3436ff39d7a9c76042c10a769c52353ec46e4e8fc3b9"
-            ],
-            "version": "==1.1.0"
+            "hashes": [],
+            "version": "==1.2.4"
         },
         "tornado": {
             "hashes": [
