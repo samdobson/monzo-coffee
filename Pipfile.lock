@@ -114,11 +114,8 @@
             "version": "==3.1.1"
         },
         "python-dotenv": {
-            "hashes": [
-                "sha256:a84569d0e00d178bc5b957f7ff208bf49287cbf61857c31c258c4a91f571527b",
-                "sha256:c9b1ddd3cdbe75c7d462cb84674d87130f4b948f090f02c7d7144779afb99ae0"
-            ],
-            "version": "==0.10.1"
+            "hashes": [],
+            "version": "==1.0.0"
         },
         "pytz": {
             "hashes": [
