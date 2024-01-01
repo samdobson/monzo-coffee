@@ -84,11 +84,8 @@
             "ref": "833a2cfc577144c3d69bcfe444c0a4aa5d624bd6"
         },
         "packaging": {
-            "hashes": [
-                "sha256:0886227f54515e592aaa2e5a553332c73962917f2831f1b0f9b9f4380a4b9807",
-                "sha256:f95a1e147590f204328170981833854229bb2912ac3d5f89e2a8ccd2834800c9"
-            ],
-            "version": "==18.0"
+            "hashes": [],
+            "version": "==23.2"
         },
         "password-required": {
             "git": "git://github.com/mikl/django-password-required.git",
